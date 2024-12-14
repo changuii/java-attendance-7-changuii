@@ -94,7 +94,7 @@ public class AttendanceController {
                 .forEach(attendance -> outputView.printAttendanceTime(attendance.getAttendanceDate(),
                         attendance.getState()));
         outputView.printAttendanceQueryResult(crew.calculateCountAttendance(), crew.calculateCountLate(),
-                crew.calculateCountAbsence());
+                crew.calculateCountAbsence(), crew.getExplsionState());
     }
 
     private void crewExpulsionQuery() {

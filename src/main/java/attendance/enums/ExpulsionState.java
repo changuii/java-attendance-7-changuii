@@ -30,4 +30,8 @@ public enum ExpulsionState {
     public String toString() {
         return state;
     }
+
+    public String getState() {
+        return state.replaceAll("[(|)]", "");
+    }
 }

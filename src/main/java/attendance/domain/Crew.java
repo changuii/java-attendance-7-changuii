@@ -2,6 +2,7 @@ package attendance.domain;
 
 import attendance.enums.ErrorMessage;
 import attendance.enums.ExpulsionState;
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -34,13 +35,13 @@ public class Crew {
     }
 
     public Attendance attendance(final LocalTime goToSchoolTime) {
-        Attendance attendance = Attendance.from(LocalDateTime.of(LocalDate.now(), goToSchoolTime));
+        Attendance attendance = Attendance.from(LocalDateTime.of(DateTimes.now().toLocalDate(), goToSchoolTime));
         attendances.add(attendance);
         return attendance;
     }
 
     public boolean containsTodayAttendance() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = DateTimes.now().toLocalDate();
         return attendances.stream()
                 .anyMatch(attendance -> attendance.isMatchToday(today));
     }
@@ -57,7 +58,7 @@ public class Crew {
 
     public void fillNotHaveAttendances() {
         sortByAttendanceDay();
-        for (int day = 1; day < LocalDate.now().getDayOfMonth(); day++) {
+        for (int day = 1; day < DateTimes.now().toLocalDate().getDayOfMonth(); day++) {
             LocalDate localDate = LocalDate.of(2024, 12, day);
             if (localDate.getDayOfWeek().getValue() > 5 || day == 25 || containsAttendanceByLocalDate(localDate)) {
                 continue;

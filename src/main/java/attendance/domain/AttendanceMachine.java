@@ -2,6 +2,7 @@ package attendance.domain;
 
 import attendance.enums.ErrorMessage;
 import attendance.enums.ExpulsionState;
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -42,7 +43,7 @@ public class AttendanceMachine {
     }
 
     public Attendance updateAttendanceByNameAndDay(final String name, final int day, final LocalTime updateTime) {
-        if (day > LocalDate.now().getMonthValue()) {
+        if (day > DateTimes.now().toLocalDate().getMonthValue()) {
             throw new IllegalArgumentException(ErrorMessage.FUTURE_ATTENDANCE_UPDATE.getMessage());
         }
         Crew crew = getCrewByName(name);

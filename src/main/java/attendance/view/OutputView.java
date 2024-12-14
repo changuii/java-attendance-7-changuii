@@ -1,8 +1,10 @@
 package attendance.view;
 
+import attendance.domain.Attendance;
 import attendance.domain.Crew;
 import attendance.enums.AttendanceState;
 import attendance.enums.DayOfWeeks;
+import attendance.enums.ExpulsionState;
 import attendance.enums.OutputMessage;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -42,7 +44,7 @@ public class OutputView {
     }
 
     private String formatAttendanceTimeByStatus(final LocalTime localTime, final AttendanceState attendanceState) {
-        if (AttendanceState.ABSENCE == attendanceState) {
+        if (localTime.equals(LocalTime.MAX)) {
             return OutputMessage.EMPTY_ATTENDANCE.toString();
         }
         return localTime.format(TIME_FORMATTER);
@@ -73,8 +75,12 @@ public class OutputView {
         print(OutputMessage.ATTENDANCE_QUERY_TITLE, name);
     }
 
-    public void printAttendanceQueryResult(final int attendanceCount, final int lateCount, final int absenceCount) {
+    public void printAttendanceQueryResult(final int attendanceCount, final int lateCount, final int absenceCount,
+                                           final ExpulsionState expulsionState) {
         print(OutputMessage.CREW_ATTENDANCE_RESULT, attendanceCount, lateCount, absenceCount);
+        if(expulsionState != ExpulsionState.EMPTY){
+            print(expulsionState.getState() + " " + "대상자입니다.");
+        }
     }
 
     public void printExpulsionTitle() {

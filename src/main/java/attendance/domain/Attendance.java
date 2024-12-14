@@ -3,6 +3,7 @@ package attendance.domain;
 import attendance.enums.AttendanceState;
 import attendance.enums.DayOfWeeks;
 import attendance.enums.ErrorMessage;
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -95,7 +96,7 @@ public class Attendance {
     }
 
     public boolean isToday() {
-        return attendanceDate.toLocalDate().isEqual(LocalDate.now());
+        return attendanceDate.toLocalDate().isEqual(DateTimes.now().toLocalDate());
     }
 
     public int compareTo(final Attendance attendance) {
