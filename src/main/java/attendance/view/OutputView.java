@@ -30,6 +30,10 @@ public class OutputView {
         print(OutputMessage.INPUT_CREW_NAME_UPDATE_TIME_INTRODUCE);
     }
 
+    public void printInputUpdateDayIntroduce() {
+        print(OutputMessage.INPUT_UPDATE_DAY_INTRODUCE);
+    }
+
     private void print(final Object message, final Object... values) {
         System.out.println(formatMessage(message.toString(), values));
     }
