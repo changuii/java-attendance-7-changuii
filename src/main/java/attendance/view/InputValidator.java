@@ -10,9 +10,17 @@ public class InputValidator {
     private static final Pattern DAY_FORMAT = Pattern.compile(DAY_REGEX);
     private static final int DAY_MIN = 1;
     private static final int DAY_MAX = 31;
+    private static final String TIME_REGEX = "^[0-9]{2}:[0-9]{2}$";
+    private static final Pattern TIME_FORMAT = Pattern.compile(TIME_REGEX);
 
     public void validateChoiceFunctionFormat(final String choiceFunction) {
         if (!CHOICE_FUNCTION_FORMAT.matcher(choiceFunction).matches()) {
+            throw new IllegalArgumentException(ErrorMessage.INPUT_FORMAT_INVALID.getMessage());
+        }
+    }
+
+    public void validateTime(final String time) {
+        if (!TIME_FORMAT.matcher(time).matches()) {
             throw new IllegalArgumentException(ErrorMessage.INPUT_FORMAT_INVALID.getMessage());
         }
     }

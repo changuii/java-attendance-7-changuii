@@ -4,6 +4,7 @@ import attendance.component.CrewsGenerator;
 import attendance.component.CsvFileParser;
 import attendance.component.FileParser;
 import attendance.controller.AttendanceController;
+import attendance.view.InputParser;
 import attendance.view.InputValidator;
 import attendance.view.InputView;
 
@@ -21,6 +22,6 @@ public abstract class AttendanceConfig {
     }
 
     private static InputView createInputView() {
-        return new InputView(new InputValidator());
+        return new InputView(new InputValidator(), new InputParser());
     }
 }

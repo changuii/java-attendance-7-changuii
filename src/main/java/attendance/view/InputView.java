@@ -1,6 +1,7 @@
 package attendance.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.time.LocalTime;
 
 public class InputView {
     private final InputValidator inputValidator;
@@ -20,6 +21,12 @@ public class InputView {
     public String inputCrewName() {
         String input = Console.readLine();
         return input;
+    }
+
+    public LocalTime inputTime() {
+        String input = Console.readLine();
+        inputValidator.validateTime(input);
+        return inputParser.parseLocalTime(input);
     }
 
     public int inputDay() {
