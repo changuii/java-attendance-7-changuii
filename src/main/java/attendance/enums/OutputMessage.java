@@ -22,7 +22,10 @@ public enum OutputMessage {
                     + "지각: %d회\n"
                     + "결석: %d회"
     ),
-    UPDATE_RESULT("-> %s %s 수정 완료!");
+    UPDATE_RESULT("-> %s %s 수정 완료!"),
+    EXPULSION_TITLE("제적 위험자 조회 결과"),
+    EXPLUSION_ROW("- %s: 결석 %d회, 지각 %d회 %s"),
+    ;
     private final String message;
 
     OutputMessage(final String message) {

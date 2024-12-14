@@ -1,5 +1,6 @@
 package attendance.view;
 
+import attendance.domain.Crew;
 import attendance.enums.AttendanceState;
 import attendance.enums.DayOfWeeks;
 import attendance.enums.OutputMessage;
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class OutputView {
     private static final String LOCAL_TIME_PATTERN = "HH:mm";
@@ -75,6 +77,19 @@ public class OutputView {
         print(OutputMessage.CREW_ATTENDANCE_RESULT, attendanceCount, lateCount, absenceCount);
     }
 
+    public void printExpulsionTitle() {
+        print(OutputMessage.EXPULSION_TITLE);
+    }
+
+    public void printExpulsionRow(final List<Crew> crews) {
+        crews.forEach(this::printCrewExpulsion);
+    }
+
+    private void printCrewExpulsion(final Crew crew) {
+        print(OutputMessage.EXPLUSION_ROW, crew.getName(), crew.calculateCountAbsence(), crew.calculateCountLate(),
+                crew.getExplsionState());
+    }
+
     private void print(final Object message, final Object... values) {
         System.out.println(formatMessage(message.toString(), values));
     }
@@ -85,5 +100,9 @@ public class OutputView {
 
     private String formatMessage(final Object formatMessage, final Object... values) {
         return String.format(formatMessage.toString(), values);
+    }
+
+    public void printErrorMessage(final IllegalArgumentException customException) {
+        print(customException.getMessage());
     }
 }

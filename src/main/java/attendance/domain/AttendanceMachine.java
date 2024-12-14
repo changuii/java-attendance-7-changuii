@@ -1,15 +1,18 @@
 package attendance.domain;
 
 import attendance.enums.ErrorMessage;
+import attendance.enums.ExpulsionState;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AttendanceMachine {
     private final List<Crew> crews;
 
     private AttendanceMachine(final List<Crew> crews) {
         this.crews = crews;
+        crews.forEach(crew -> crew.fillNotHaveAttendances());
     }
 
     public static AttendanceMachine from(final List<Crew> crews) {
@@ -44,6 +47,13 @@ public class AttendanceMachine {
         }
         Crew crew = getCrewByName(name);
         return crew.updateByDayAndTime(day, updateTime);
+    }
+
+    public List<Crew> getExpulsionCrews() {
+        return crews.stream()
+                .filter(crew -> crew.getExplsionState() != ExpulsionState.EMPTY)
+                .sorted(Crew::compareTo)
+                .collect(Collectors.toList());
     }
 
     public Attendance getByNameAndDay(final String name, final int day) {

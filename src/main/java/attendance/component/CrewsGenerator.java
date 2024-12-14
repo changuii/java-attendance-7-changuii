@@ -38,6 +38,7 @@ public class CrewsGenerator {
     private List<Crew> parseCrews(final List<String> crewTexts) {
         return crewTexts.stream()
                 .map(this::parseCrew)
+                .distinct()
                 .collect(Collectors.toList());
     }
 

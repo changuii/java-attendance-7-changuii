@@ -4,7 +4,7 @@ import attendance.enums.ErrorMessage;
 import java.util.regex.Pattern;
 
 public class InputValidator {
-    private static final String CHOICE_FUNCTION_REGEX = "^[1|2|3|Q]$";
+    private static final String CHOICE_FUNCTION_REGEX = "^[1|2|3|4|Q]$";
     private static final Pattern CHOICE_FUNCTION_FORMAT = Pattern.compile(CHOICE_FUNCTION_REGEX);
     private static final String DAY_REGEX = "^[0-9]{1,2}$";
     private static final Pattern DAY_FORMAT = Pattern.compile(DAY_REGEX);

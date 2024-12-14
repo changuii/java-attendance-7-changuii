@@ -9,6 +9,7 @@ import attendance.handler.RetryHandler;
 import attendance.view.InputView;
 import attendance.view.OutputView;
 import java.time.LocalTime;
+import java.util.List;
 
 public class AttendanceController {
     private static final String FUNCTION_ATTENDANCE = "1";
@@ -44,7 +45,7 @@ public class AttendanceController {
         } else if (function.equals(FUNCTION_CREW_ATTENDANCE_QUERY)) {
             attendanceQuery();
         } else if (function.equals(FUNCTION_CREW_EXPULSION_QUERY)) {
-
+            crewExpulsionQuery();
         }
         return function.equals(FUNCTION_QUIT);
     }
@@ -94,5 +95,11 @@ public class AttendanceController {
                         attendance.getState()));
         outputView.printAttendanceQueryResult(crew.calculateCountAttendance(), crew.calculateCountLate(),
                 crew.calculateCountAbsence());
+    }
+
+    private void crewExpulsionQuery() {
+        outputView.printExpulsionTitle();
+        List<Crew> expulsionCrews = attendanceMachine.getExpulsionCrews();
+        outputView.printExpulsionRow(expulsionCrews);
     }
 }

@@ -1,12 +1,14 @@
 package attendance.domain;
 
 import attendance.enums.ErrorMessage;
+import attendance.enums.ExpulsionState;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class Crew {
     private static final int YEAR_NOW = 2024;
@@ -53,7 +55,7 @@ public class Crew {
         Collections.sort(attendances, ((o1, o2) -> o1.compareTo(o2)));
     }
 
-    private void fillNotHaveAttendances() {
+    public void fillNotHaveAttendances() {
         sortByAttendanceDay();
         for (int day = 1; day < LocalDate.now().getDayOfMonth(); day++) {
             LocalDate localDate = LocalDate.of(2024, 12, day);
@@ -105,4 +107,42 @@ public class Crew {
                 .anyMatch(attendance -> attendance.isMatchToday(localDate));
     }
 
+    public ExpulsionState getExplsionState() {
+        ExpulsionState expulsionState = ExpulsionState.matchByLateAndAbsence(calculateCountLate(),
+                calculateCountAbsence());
+        return expulsionState;
+    }
+
+    public int compareTo(final Crew target) {
+        int count = calculateCountAbsence() + calculateCountLate() / 3;
+        int targetCount = target.calculateCountAbsence() + calculateCountLate() / 3;
+
+        if (Integer.compare(count, targetCount) != 0) {
+            return Integer.compare(targetCount, count);
+        }
+        return name.compareTo(target.name);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Crew crew = (Crew) o;
+
+        return Objects.equals(name, crew.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
+    }
 }
