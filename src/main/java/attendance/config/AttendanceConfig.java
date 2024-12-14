@@ -4,6 +4,7 @@ import attendance.component.CrewsGenerator;
 import attendance.component.CsvFileParser;
 import attendance.component.FileParser;
 import attendance.controller.AttendanceController;
+import attendance.handler.RetryHandler;
 import attendance.view.InputParser;
 import attendance.view.InputValidator;
 import attendance.view.InputView;
@@ -11,7 +12,7 @@ import attendance.view.OutputView;
 
 public abstract class AttendanceConfig {
     public static AttendanceController createController() {
-        return new AttendanceController(createCrewsGenerator(), createInputView(), new OutputView());
+        return new AttendanceController(createCrewsGenerator(), createInputView(), new OutputView(), new RetryHandler());
     }
 
     private static CrewsGenerator createCrewsGenerator() {

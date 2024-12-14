@@ -13,24 +13,24 @@ public class AttendanceController {
     private static final String FUNCTION_CREW_ATTENDANCE_QUERY = "3";
     private static final String FUNCTION_CREW_EXPULSION_QUERY = "4";
     private static final String FUNCTION_QUIT = "Q";
-    private final CrewsGenerator crewsGenerator;
     private final InputView inputView;
     private final OutputView outputView;
     private final RetryHandler retryHandler;
+    private final List<Crew> crews;
 
     public AttendanceController(final CrewsGenerator crewsGenerator, final InputView inputView,
                                 final OutputView outputView, final RetryHandler retryHandler) {
-        this.crewsGenerator = crewsGenerator;
+        crews = crewsGenerator.generate();
         this.inputView = inputView;
         this.outputView = outputView;
         this.retryHandler = retryHandler;
     }
 
     public void run() {
-        List<Crew> crews = crewsGenerator.generate();
+        retryHandler.retryUntilTrue(this::start);
     }
 
-    private boolean start(final List<Crew> crews) {
+    private boolean start() {
         outputView.printTodayAndFunctionIntroduce();
         outputView.printFunctionChoiceIntroduce();
         String function = inputView.inputChoiceFunction();
@@ -44,5 +44,9 @@ public class AttendanceController {
 
         }
         return function.equals(FUNCTION_QUIT);
+    }
+
+    private void attendance() {
+
     }
 }

@@ -1,11 +1,11 @@
 package attendance.handler;
 
-import java.util.function.Function;
+import java.util.function.BooleanSupplier;
 
 public class RetryHandler {
 
-    public <T> void retryUntilTrue(final Function<T, Boolean> logic, final T data) {
-        while (!logic.apply(data)) {
+    public void retryUntilTrue(final BooleanSupplier logic) {
+        while (!logic.getAsBoolean()) {
         }
     }
 }
