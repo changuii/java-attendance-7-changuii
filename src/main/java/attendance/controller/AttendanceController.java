@@ -1,11 +1,13 @@
 package attendance.controller;
 
 import attendance.component.CrewsGenerator;
-import attendance.domain.Crew;
+import attendance.domain.Attendance;
+import attendance.domain.AttendanceMachine;
+import attendance.enums.ErrorMessage;
 import attendance.handler.RetryHandler;
 import attendance.view.InputView;
 import attendance.view.OutputView;
-import java.util.List;
+import java.time.LocalTime;
 
 public class AttendanceController {
     private static final String FUNCTION_ATTENDANCE = "1";
@@ -16,11 +18,11 @@ public class AttendanceController {
     private final InputView inputView;
     private final OutputView outputView;
     private final RetryHandler retryHandler;
-    private final List<Crew> crews;
+    private final AttendanceMachine attendanceMachine;
 
     public AttendanceController(final CrewsGenerator crewsGenerator, final InputView inputView,
                                 final OutputView outputView, final RetryHandler retryHandler) {
-        crews = crewsGenerator.generate();
+        attendanceMachine = AttendanceMachine.from(crewsGenerator.generate());
         this.inputView = inputView;
         this.outputView = outputView;
         this.retryHandler = retryHandler;
@@ -35,7 +37,7 @@ public class AttendanceController {
         outputView.printFunctionChoiceIntroduce();
         String function = inputView.inputChoiceFunction();
         if (function.equals(FUNCTION_ATTENDANCE)) {
-
+            attendance();
         } else if (function.equals(FUNCTION_ATTENDANCE_UPDATE)) {
 
         } else if (function.equals(FUNCTION_CREW_ATTENDANCE_QUERY)) {
@@ -47,6 +49,17 @@ public class AttendanceController {
     }
 
     private void attendance() {
-
+        outputView.printInputCrewNameIntroduce();
+        String crewName = inputView.inputCrewName();
+        if (!attendanceMachine.containsCrewName(crewName)) {
+            throw new IllegalArgumentException(ErrorMessage.CREW_NAME_NOT_FOUND.getMessage());
+        }
+        if (attendanceMachine.isAttendancedTodayByName(crewName)) {
+            throw new IllegalArgumentException(ErrorMessage.ALREADY_ATTENDANCE.getMessage());
+        }
+        outputView.printInputGoToSchoolTimeIntroduce();
+        LocalTime goToSchoolTime = inputView.inputTime();
+        Attendance attendance = attendanceMachine.attendanceByNameAndTime(crewName, goToSchoolTime);
+        outputView.printAttendanceTime(attendance.getAttendanceDate(), attendance.getState());
     }
 }

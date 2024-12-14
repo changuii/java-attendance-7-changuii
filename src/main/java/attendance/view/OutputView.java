@@ -1,11 +1,17 @@
 package attendance.view;
 
+import attendance.enums.AttendanceState;
 import attendance.enums.DayOfWeeks;
 import attendance.enums.OutputMessage;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class OutputView {
+    private static final String LOCAL_TIME_PATTERN = "HH:mm";
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(LOCAL_TIME_PATTERN);
+
     public void printTodayAndFunctionIntroduce() {
         LocalDate today = LocalDate.now();
         int month = today.getMonthValue();
@@ -24,6 +30,12 @@ public class OutputView {
 
     public void printInputGoToSchoolTimeIntroduce() {
         print(OutputMessage.INPUT_GO_TO_SCHOOL_TIME_INTRODUCE);
+    }
+
+    public void printAttendanceTime(final LocalDateTime attendanceTime, final AttendanceState state) {
+        print(OutputMessage.ATTENDANCE_TIME, attendanceTime.getMonth().getValue(),
+                attendanceTime.getDayOfMonth(), DayOfWeeks.parseDayOfWeek(attendanceTime.getDayOfWeek()),
+                attendanceTime.toLocalTime().format(TIME_FORMATTER), state.getState());
     }
 
     public void printInputCrewNameUpdateTimeIntroduce() {

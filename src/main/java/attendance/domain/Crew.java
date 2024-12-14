@@ -1,6 +1,8 @@
 package attendance.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,18 @@ public class Crew {
 
     public void additionAttendances(final LocalDateTime localDateTime) {
         attendances.add(Attendance.from(localDateTime));
+    }
+
+    public Attendance attendance(final LocalTime goToSchoolTime) {
+        Attendance attendance = Attendance.from(LocalDateTime.of(LocalDate.of(2024, 12, 13), goToSchoolTime));
+        attendances.add(attendance);
+        return attendance;
+    }
+
+    public boolean containsTodayAttendance() {
+        LocalDate today = LocalDate.now();
+        return attendances.stream()
+                .anyMatch(attendance -> attendance.isMatchToday(today));
     }
 
 }
