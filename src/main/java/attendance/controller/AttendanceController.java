@@ -21,6 +21,7 @@ public class AttendanceController {
     public void run() {
         List<Crew> crews = crewsGenerator.generate();
         outputView.printTodayAndFunctionIntroduce();
+        outputView.printFunctionChoiceIntroduce();
         inputView.inputChoiceFunction();
     }
 }

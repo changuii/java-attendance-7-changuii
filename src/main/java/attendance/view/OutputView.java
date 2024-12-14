@@ -14,6 +14,10 @@ public class OutputView {
         print(OutputMessage.TODAY_AND_FUNCTION_INTRODUCE, month, day, DayOfWeeks.parseDayOfWeek(dayOfWeek));
     }
 
+    public void printFunctionChoiceIntroduce() {
+        print(OutputMessage.FUNCTION_CHOICE_INTRODUCE);
+    }
+
     private void print(final Object message, final Object... values) {
         System.out.println(formatMessage(message.toString(), values));
     }
