@@ -14,7 +14,14 @@ public enum OutputMessage {
     INPUT_CREW_NAME_UPDATE_TIME_INTRODUCE("출석을 수정하려는 크루의 닉네임을 입력해 주세요."),
     INPUT_UPDATE_DAY_INTRODUCE("수정하려는 날짜(일)를 입력해 주세요."),
     INPUT_UPDATE_TIME_INTRODUCE("언제로 변경하겠습니까?"),
-    ATTENDANCE_TIME("%d월 %d일 %s %s %s");
+    ATTENDANCE_TIME("%d월 %d일 %s %s %s"),
+    ATTENDANCE_QUERY_TITLE("이번 달 %s의 출석 기록입니다."),
+    EMPTY_ATTENDANCE("--:--"),
+    CREW_ATTENDANCE_RESULT(
+            "출석: %d회\n"
+                    + "지각: %d회\n"
+                    + "결석: %d회"
+    );
     private final String message;
 
     OutputMessage(final String message) {

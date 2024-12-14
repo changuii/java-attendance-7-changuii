@@ -7,7 +7,7 @@ public enum DayOfWeeks {
     MONDAY(DayOfWeek.MONDAY, "월요일"),
     TUESDAY(DayOfWeek.TUESDAY, "화요일"),
     WEDNESDAY(DayOfWeek.WEDNESDAY, "수요일"),
-    THURSDAY(DayOfWeek.TUESDAY, "목요일"),
+    THURSDAY(DayOfWeek.THURSDAY, "목요일"),
     FRIDAY(DayOfWeek.FRIDAY, "금요일"),
     SATURDAY(DayOfWeek.SATURDAY, "토요일"),
     SUNDAY(DayOfWeek.SUNDAY, "일요일");

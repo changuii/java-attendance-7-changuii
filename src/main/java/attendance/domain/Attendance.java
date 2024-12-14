@@ -27,8 +27,16 @@ public class Attendance {
         this.attendanceDate = attendanceDate;
     }
 
+    private Attendance(final LocalDate empty) {
+        this.attendanceDate = LocalDateTime.of(empty, LocalTime.MAX);
+    }
+
     public static Attendance from(final LocalDateTime attendanceDate) {
         return new Attendance(attendanceDate);
+    }
+
+    public static Attendance empty(final LocalDate localDate) {
+        return new Attendance(localDate);
     }
 
     private void validateDayOfWeek(final LocalDateTime dateTime) {
@@ -62,9 +70,9 @@ public class Attendance {
         LocalTime localTime = attendanceDate.toLocalTime();
         int min = localTime.getMinute() * HOUR_TO_MIN;
         if (attendanceDate.getDayOfWeek() == DayOfWeek.MONDAY) {
-            return min > ABSENCE_TIME + START_MONDAY_CLASS_CAMPUS * HOUR_TO_MIN && !isAbsence();
+            return min > LATE_TIME + START_MONDAY_CLASS_CAMPUS * HOUR_TO_MIN && !isAbsence();
         }
-        return min > ABSENCE_TIME + START_CLASS_CAMPUS * HOUR_TO_MIN && !isAbsence();
+        return min > LATE_TIME + START_CLASS_CAMPUS * HOUR_TO_MIN && !isAbsence();
     }
 
     public boolean isAbsence() {
@@ -84,5 +92,13 @@ public class Attendance {
             return AttendanceState.LATE;
         }
         return AttendanceState.ATTENDANCE;
+    }
+
+    public boolean isToday() {
+        return attendanceDate.toLocalDate().isEqual(LocalDate.now());
+    }
+
+    public int compareTo(final Attendance attendance) {
+        return this.attendanceDate.compareTo(attendance.attendanceDate);
     }
 }

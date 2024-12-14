@@ -30,7 +30,7 @@ public class AttendanceMachine {
         return crew.containsTodayAttendance();
     }
 
-    private Crew getCrewByName(final String name) {
+    public Crew getCrewByName(final String name) {
         return crews.stream()
                 .filter(crew -> crew.matchName(name))
                 .findAny()
