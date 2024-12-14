@@ -6,6 +6,7 @@ import attendance.enums.AttendanceState;
 import attendance.enums.DayOfWeeks;
 import attendance.enums.ExpulsionState;
 import attendance.enums.OutputMessage;
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,7 +19,7 @@ public class OutputView {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(LOCAL_TIME_PATTERN);
 
     public void printTodayAndFunctionIntroduce() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = DateTimes.now().toLocalDate();
         int month = today.getMonthValue();
         int day = today.getDayOfMonth();
         DayOfWeek dayOfWeek = today.getDayOfWeek();
