@@ -18,6 +18,10 @@ public class OutputView {
         print(OutputMessage.FUNCTION_CHOICE_INTRODUCE);
     }
 
+    public void printInputCrewNameIntroduce() {
+        print(OutputMessage.INPUT_CREW_NAME_INTRODUCE);
+    }
+
     private void print(final Object message, final Object... values) {
         System.out.println(formatMessage(message.toString(), values));
     }

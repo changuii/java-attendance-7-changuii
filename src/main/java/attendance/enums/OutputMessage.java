@@ -8,7 +8,8 @@ public enum OutputMessage {
                     + "3. 크루별 출석 기록 확인\n"
                     + "4. 제적 위험자 확인\n"
                     + "Q. 종료"
-    );
+    ),
+    INPUT_CREW_NAME_INTRODUCE("닉네임을 입력해 주세요.");
     private final String message;
 
     OutputMessage(final String message) {
