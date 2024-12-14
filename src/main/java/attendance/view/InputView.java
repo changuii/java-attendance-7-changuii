@@ -14,4 +14,9 @@ public class InputView {
         inputValidator.validateChoiceFunctionFormat(input);
         return input;
     }
+
+    public String inputCrewName() {
+        String input = Console.readLine();
+        return input;
+    }
 }
