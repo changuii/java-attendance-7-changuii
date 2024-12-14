@@ -26,6 +26,10 @@ public class OutputView {
         print(OutputMessage.INPUT_GO_TO_SCHOOL_TIME_INTRODUCE);
     }
 
+    public void printInputCrewNameUpdateTimeIntroduce() {
+        print(OutputMessage.INPUT_CREW_NAME_UPDATE_TIME_INTRODUCE);
+    }
+
     private void print(final Object message, final Object... values) {
         System.out.println(formatMessage(message.toString(), values));
     }
