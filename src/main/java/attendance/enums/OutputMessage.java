@@ -9,7 +9,8 @@ public enum OutputMessage {
                     + "4. 제적 위험자 확인\n"
                     + "Q. 종료"
     ),
-    INPUT_CREW_NAME_INTRODUCE("닉네임을 입력해 주세요.");
+    INPUT_CREW_NAME_INTRODUCE("닉네임을 입력해 주세요."),
+    INPUT_GO_TO_SCHOOL_TIME_INTRODUCE("등교 시간을 입력해 주세요.");
     private final String message;
 
     OutputMessage(final String message) {
