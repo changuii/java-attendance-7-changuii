@@ -4,10 +4,12 @@ import attendance.component.CrewsGenerator;
 import attendance.domain.Attendance;
 import attendance.domain.AttendanceMachine;
 import attendance.domain.Crew;
+import attendance.enums.DayOfWeeks;
 import attendance.enums.ErrorMessage;
 import attendance.handler.RetryHandler;
 import attendance.view.InputView;
 import attendance.view.OutputView;
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -51,6 +53,14 @@ public class AttendanceController {
     }
 
     private void attendance() {
+        if (DateTimes.now().toLocalDate().getDayOfWeek().getValue() > 5) {
+            throw new IllegalArgumentException(
+                    String.format(ErrorMessage.NOT_GO_TO_SCHOOL_DAY.getMessage(),
+                            DateTimes.now().toLocalDate().getMonth().getValue(),
+                            DateTimes.now().toLocalDate().getDayOfMonth(),
+                            DayOfWeeks.parseDayOfWeek(DateTimes.now().toLocalDate().getDayOfWeek())
+                    ));
+        }
         outputView.printInputCrewNameIntroduce();
         String crewName = inputView.inputCrewName();
         if (!attendanceMachine.containsCrewName(crewName)) {
