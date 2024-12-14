@@ -21,7 +21,8 @@ public enum OutputMessage {
             "출석: %d회\n"
                     + "지각: %d회\n"
                     + "결석: %d회"
-    );
+    ),
+    UPDATE_RESULT("-> %s %s 수정 완료!");
     private final String message;
 
     OutputMessage(final String message) {

@@ -1,5 +1,6 @@
 package attendance.domain;
 
+import attendance.enums.ErrorMessage;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -8,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Crew {
+    private static final int YEAR_NOW = 2024;
+    private static final int MONTH_NOW = 12;
     private final String name;
     private final List<Attendance> attendances;
 
@@ -78,6 +81,23 @@ public class Crew {
         return (int) attendances.stream()
                 .filter(attendance -> attendance.isAbsence())
                 .count();
+    }
+
+    public Attendance getByDay(final int day) {
+        fillNotHaveAttendances();
+        return attendances.stream()
+                .filter(attendance -> attendance.isMatchToday(LocalDate.of(YEAR_NOW, MONTH_NOW, day)))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.FUTURE_ATTENDANCE_UPDATE.getMessage()));
+    }
+
+    public Attendance updateByDayAndTime(final int day, final LocalTime localTime) {
+        Attendance before = getByDay(day);
+        LocalDate updateDate = LocalDate.of(YEAR_NOW, MONTH_NOW, day);
+        Attendance after = Attendance.from(LocalDateTime.of(updateDate, localTime));
+        attendances.removeIf(attendance -> attendance.isMatchToday(updateDate));
+        attendances.add(after);
+        return before;
     }
 
     private boolean containsAttendanceByLocalDate(final LocalDate localDate) {

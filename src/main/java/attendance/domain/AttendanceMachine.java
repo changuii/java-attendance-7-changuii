@@ -1,6 +1,7 @@
 package attendance.domain;
 
 import attendance.enums.ErrorMessage;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -35,5 +36,17 @@ public class AttendanceMachine {
                 .filter(crew -> crew.matchName(name))
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.CREW_NAME_NOT_FOUND.getMessage()));
+    }
+
+    public Attendance updateAttendanceByNameAndDay(final String name, final int day, final LocalTime updateTime) {
+        if (day > LocalDate.now().getMonthValue()) {
+            throw new IllegalArgumentException(ErrorMessage.FUTURE_ATTENDANCE_UPDATE.getMessage());
+        }
+        Crew crew = getCrewByName(name);
+        return crew.updateByDayAndTime(day, updateTime);
+    }
+
+    public Attendance getByNameAndDay(final String name, final int day) {
+        return getCrewByName(name).getByDay(day);
     }
 }

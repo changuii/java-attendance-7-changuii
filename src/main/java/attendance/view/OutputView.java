@@ -51,6 +51,14 @@ public class OutputView {
         print(OutputMessage.INPUT_CREW_NAME_UPDATE_TIME_INTRODUCE);
     }
 
+    public void printUpdateAttendance(final LocalDateTime before, final LocalTime after,
+                                      final AttendanceState beforeState, final AttendanceState afterState) {
+        printWithOutLineBreak(OutputMessage.ATTENDANCE_TIME, before.getMonth().getValue(),
+                before.getDayOfMonth(), DayOfWeeks.parseDayOfWeek(before.getDayOfWeek()),
+                formatAttendanceTimeByStatus(before.toLocalTime(), beforeState), beforeState.getState());
+        print(OutputMessage.UPDATE_RESULT, after.format(TIME_FORMATTER), afterState.getState());
+    }
+
     public void printInputUpdateDayIntroduce() {
         print(OutputMessage.INPUT_UPDATE_DAY_INTRODUCE);
     }
@@ -69,6 +77,10 @@ public class OutputView {
 
     private void print(final Object message, final Object... values) {
         System.out.println(formatMessage(message.toString(), values));
+    }
+
+    private void printWithOutLineBreak(final Object message, final Object... values) {
+        System.out.print(formatMessage(message.toString(), values));
     }
 
     private String formatMessage(final Object formatMessage, final Object... values) {
