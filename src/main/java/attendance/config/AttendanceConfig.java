@@ -7,10 +7,11 @@ import attendance.controller.AttendanceController;
 import attendance.view.InputParser;
 import attendance.view.InputValidator;
 import attendance.view.InputView;
+import attendance.view.OutputView;
 
 public abstract class AttendanceConfig {
     public static AttendanceController createController() {
-        return new AttendanceController(createCrewsGenerator(), createInputView());
+        return new AttendanceController(createCrewsGenerator(), createInputView(), new OutputView());
     }
 
     private static CrewsGenerator createCrewsGenerator() {
